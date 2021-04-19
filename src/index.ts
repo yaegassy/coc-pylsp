@@ -112,7 +112,6 @@ async function installWrapper(context: ExtensionContext) {
   ret = await window.showQuickpick(['Yes', 'Cancel'], msg);
   if (ret === 0) {
     try {
-      //await pylspInstall(context, flake8Version, mypyVersion, blackVersion, isortVersion);
       await pylspInstall(context);
     } catch (e) {
       return;
