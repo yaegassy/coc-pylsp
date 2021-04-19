@@ -1,0 +1,133 @@
+import {
+  commands,
+  ExtensionContext,
+  LanguageClient,
+  LanguageClientOptions,
+  RevealOutputChannelOn,
+  ServerOptions,
+  services,
+  workspace,
+  window,
+  WorkspaceConfiguration,
+} from 'coc.nvim';
+
+import fs from 'fs';
+import path from 'path';
+
+import child_process from 'child_process';
+import util from 'util';
+
+import { pylspInstall } from './installer';
+
+const exec = util.promisify(child_process.exec);
+
+// TODO: Enhancing python3 path-detect
+// MEMO: I can't recommend python2, but maybe there is a request for it...
+function getPythonPath(config: WorkspaceConfiguration): string {
+  // eslint-disable-next-line prefer-const
+  let pythonPath = config.get<string>('pythonPath');
+  if (pythonPath) {
+    return pythonPath;
+  }
+
+  return 'python3';
+}
+
+export async function activate(context: ExtensionContext): Promise<void> {
+  const { subscriptions } = context;
+  const extensionConfig = workspace.getConfiguration('pylsp');
+  const enable = extensionConfig.enable;
+  if (!enable) return;
+
+  const extensionStoragePath = context.storagePath;
+  if (!fs.existsSync(extensionStoragePath)) {
+    fs.mkdirSync(extensionStoragePath);
+  }
+
+  // MEMO: Priority to detect pylsp
+  //
+  // 1. pylsp.commandPath setting
+  // 2. Module in the current python3 environment (e.g. venv)
+  // 3. builtin pylsp
+  let isModule = false;
+  let pylspPath = extensionConfig.get('commandPath', '');
+  if (!pylspPath) {
+    // MEMO: require, await
+    if (await _existsEnvPylsp(getPythonPath(extensionConfig))) {
+      pylspPath = 'dummy';
+      isModule = true;
+    } else if (fs.existsSync(path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp'))) {
+      pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp');
+    }
+  }
+
+  // Install "pylsp" if it does not exist.
+  if (!pylspPath) {
+    await installWrapper(context);
+    pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp');
+  }
+
+  // If "pylsp" does not exist completely, terminate the process.
+  if (!pylspPath) {
+    window.showErrorMessage('Exit because "pylsp" does not exist.');
+    return;
+  }
+
+  context.subscriptions.push(
+    commands.registerCommand('pylsp.installServer', async () => {
+      await installWrapper(context);
+    })
+  );
+
+  let command = pylspPath;
+  if (isModule) {
+    command = 'pylsp';
+  }
+
+  const serverOptions: ServerOptions = {
+    command,
+    args: ['-vv'],
+  };
+
+  const clientOptions: LanguageClientOptions = {
+    documentSelector: ['python'],
+    synchronize: {
+      configurationSection: 'pylsp',
+    },
+    outputChannelName: 'pylsp',
+    revealOutputChannelOn: RevealOutputChannelOn.Never,
+    initializationOptions: extensionConfig.initializationOptions || {},
+  };
+
+  const client = new LanguageClient('pylsp', 'Python language server', serverOptions, clientOptions);
+
+  subscriptions.push(services.registLanguageClient(client));
+}
+
+async function installWrapper(context: ExtensionContext) {
+  const msg = 'Install "pylsp"?';
+  context.workspaceState;
+
+  let ret = 0;
+  ret = await window.showQuickpick(['Yes', 'Cancel'], msg);
+  if (ret === 0) {
+    try {
+      //await pylspInstall(context, flake8Version, mypyVersion, blackVersion, isortVersion);
+      await pylspInstall(context);
+    } catch (e) {
+      return;
+    }
+  } else {
+    return;
+  }
+}
+
+async function _existsEnvPylsp(pythonPath: string): Promise<boolean> {
+  const checkCmd = `${pythonPath} -m pylsp -h`;
+  try {
+    await exec(checkCmd);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
