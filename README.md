@@ -2,6 +2,8 @@
 
 [pylsp](https://github.com/python-lsp/python-lsp-server) (python-lsp-server) extension for [coc.nvim](https://github.com/neoclide/coc.nvim).
 
+<img width="780" alt="coc-pylsp-demo" src="https://user-images.githubusercontent.com/188642/115177162-97e3d300-a109-11eb-94dd-a6a7989b4a06.gif">
+
 ## What pylsp (python-lsp/python-lsp-server)
 
 Currently, `pyls` (palantir/python-language-server) seems to be stagnant in maintenance.
