@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yaegassy/coc-pysen"
+    "url": "https://github.com/yaegassy/coc-pylsp"
   },
   "scripts": {
     "lint": "eslint src --ext ts",
