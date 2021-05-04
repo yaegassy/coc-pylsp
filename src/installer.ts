@@ -10,12 +10,16 @@ import { PYLSP_VERSION } from './constant';
 
 const exec = util.promisify(child_process.exec);
 
-export async function pylspInstall(context: ExtensionContext): Promise<void> {
+export async function pylspInstall(pythonCommand: string, context: ExtensionContext): Promise<void> {
   const pathVenv = path.join(context.storagePath, 'pylsp', 'venv');
-  const pathPip = path.join(pathVenv, 'bin', 'pip');
+
+  let pathVenvPython = path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'python');
+  if (process.platform === 'win32') {
+    pathVenvPython = path.join(context.storagePath, 'pylsp', 'venv', 'Scripts', 'python');
+  }
 
   const statusItem = window.createStatusBarItem(0, { progress: true });
-  statusItem.text = `Install pylsp ...`;
+  statusItem.text = `Install pylsp...`;
   statusItem.show();
 
   const extensionConfig = workspace.getConfiguration('pylsp');
@@ -25,18 +29,20 @@ export async function pylspInstall(context: ExtensionContext): Promise<void> {
   if (extrasArgs.length >= 1) {
     const installEtrasArgs = extrasArgs.join(',');
     installCmd =
-      `python3 -m venv ${pathVenv} && ` +
-      `${pathPip} install -U pip 'python-lsp-server[${installEtrasArgs}]'==${PYLSP_VERSION}`;
+      `${pythonCommand} -m venv ${pathVenv} && ` +
+      `${pathVenvPython} -m pip install -U pip python-lsp-server[${installEtrasArgs}]==${PYLSP_VERSION}`;
   } else {
-    installCmd = `python3 -m venv ${pathVenv} && ` + `${pathPip} install -U pip python-lsp-server==${PYLSP_VERSION}`;
+    installCmd =
+      `${pythonCommand} -m venv ${pathVenv} && ` +
+      `${pathVenvPython} install -U pip python-lsp-server==${PYLSP_VERSION}`;
   }
 
   rimraf.sync(pathVenv);
   try {
-    window.showWarningMessage(`Install pylsp ...`);
+    window.showMessage(`Install pylsp...`);
     await exec(installCmd);
     statusItem.hide();
-    window.showWarningMessage(`pylsp: installed!`);
+    window.showMessage(`pylsp: installed!`);
   } catch (error) {
     statusItem.hide();
     window.showErrorMessage(`pylsp: install failed. | ${error}`);

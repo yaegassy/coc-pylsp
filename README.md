@@ -66,6 +66,7 @@ You can also run the installation command manually.
 
 - `pylsp.enable`: Enable coc-pylsp extension, default: `true`
 - `pylsp.commandPath`: The custom path to the pylsp (Absolute path), default: `""`
+- `pylsp.pylsp.builtin.pythonPath`: Python 3.x path (Absolute path) to be used for built-in install, default: `""`
 - `pylsp.builtin.extrasArgs`: Setting extras_require for built-in installation, default: `["all"]`
 - `pylsp.configurationSources`: List of configuration sources to use, valid options `["pycodestyle", "pyflakes"]`, default: `["pycodestyle"]`
 - `pylsp.plugins.jedi.extra_paths`: Define extra paths for jedi.Script, default: `[]`
@@ -116,7 +117,7 @@ You can also run the installation command manually.
 - `pylsp.installServer`: Install pylsp (builtin)
   - It will be installed in this path:
     - Mac/Linux: `~/.config/coc/extensions/coc-pylsp-data/pylsp/venv/bin/pylsp`
-    - Windows: `~/AppData/Local/coc/extensions/coc-pylsp-data/pylsp/venv/bin/pylsp`
+    - Windows: `~/AppData/Local/coc/extensions/coc-pylsp-data/pylsp/venv/Scripts/pylsp.exe`
 
 ## Other python-related coc.nvim extensions
 
