@@ -17,21 +17,11 @@ import path from 'path';
 import child_process from 'child_process';
 import util from 'util';
 
+import which from 'which';
+
 import { pylspInstall } from './installer';
 
 const exec = util.promisify(child_process.exec);
-
-// TODO: Enhancing python3 path-detect
-// MEMO: I can't recommend python2, but maybe there is a request for it...
-function getPythonPath(config: WorkspaceConfiguration): string {
-  // eslint-disable-next-line prefer-const
-  let pythonPath = config.get<string>('pythonPath');
-  if (pythonPath) {
-    return pythonPath;
-  }
-
-  return 'python3';
-}
 
 export async function activate(context: ExtensionContext): Promise<void> {
   const { subscriptions } = context;
@@ -53,18 +43,36 @@ export async function activate(context: ExtensionContext): Promise<void> {
   let pylspPath = extensionConfig.get('commandPath', '');
   if (!pylspPath) {
     // MEMO: require, await
-    if (await _existsEnvPylsp(getPythonPath(extensionConfig))) {
+    if (await existsEnvPylsp(getPythonPath(extensionConfig))) {
       pylspPath = 'dummy';
       isModule = true;
-    } else if (fs.existsSync(path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp'))) {
-      pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp');
+    } else if (
+      fs.existsSync(path.join(context.storagePath, 'pylsp', 'venv', 'Scripts', 'pylsp.exe')) ||
+      fs.existsSync(path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp'))
+    ) {
+      if (process.platform === 'win32') {
+        pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'Scripts', 'pylsp.exe');
+      } else {
+        pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp');
+      }
     }
   }
 
+  const pythonCommand = getPythonPath(extensionConfig);
+
   // Install "pylsp" if it does not exist.
   if (!pylspPath) {
-    await installWrapper(context);
-    pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp');
+    if (pythonCommand) {
+      await installWrapper(pythonCommand, context);
+    } else {
+      window.showErrorMessage('python3/python command not found');
+    }
+
+    if (process.platform === 'win32') {
+      pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'Scripts', 'pylsp.exe');
+    } else {
+      pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp');
+    }
   }
 
   // If "pylsp" does not exist completely, terminate the process.
@@ -75,7 +83,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   context.subscriptions.push(
     commands.registerCommand('pylsp.installServer', async () => {
-      await installWrapper(context);
+      await installWrapper(pythonCommand, context);
     })
   );
 
@@ -104,7 +112,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   subscriptions.push(services.registLanguageClient(client));
 }
 
-async function installWrapper(context: ExtensionContext) {
+async function installWrapper(pythonCommand: string, context: ExtensionContext) {
   const msg = 'Install "pylsp"?';
   context.workspaceState;
 
@@ -112,7 +120,7 @@ async function installWrapper(context: ExtensionContext) {
   ret = await window.showQuickpick(['Yes', 'Cancel'], msg);
   if (ret === 0) {
     try {
-      await pylspInstall(context);
+      await pylspInstall(pythonCommand, context);
     } catch (e) {
       return;
     }
@@ -121,7 +129,7 @@ async function installWrapper(context: ExtensionContext) {
   }
 }
 
-async function _existsEnvPylsp(pythonPath: string): Promise<boolean> {
+async function existsEnvPylsp(pythonPath: string): Promise<boolean> {
   const checkCmd = `${pythonPath} -m pylsp -h`;
   try {
     await exec(checkCmd);
@@ -129,4 +137,29 @@ async function _existsEnvPylsp(pythonPath: string): Promise<boolean> {
   } catch (error) {
     return false;
   }
+}
+
+function getPythonPath(config: WorkspaceConfiguration): string {
+  let pythonPath = config.get<string>('builtin.pythonPath', '');
+  if (pythonPath) {
+    return pythonPath;
+  }
+
+  try {
+    which.sync('python3');
+    pythonPath = 'python3';
+    return pythonPath;
+  } catch (e) {
+    // noop
+  }
+
+  try {
+    which.sync('python');
+    pythonPath = 'python';
+    return pythonPath;
+  } catch (e) {
+    // noop
+  }
+
+  return pythonPath;
 }
