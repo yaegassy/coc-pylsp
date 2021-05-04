@@ -30,7 +30,7 @@ export async function pylspInstall(pythonCommand: string, context: ExtensionCont
     const installEtrasArgs = extrasArgs.join(',');
     installCmd =
       `${pythonCommand} -m venv ${pathVenv} && ` +
-      `${pathVenvPython} -m pip install -U pip 'python-lsp-server[${installEtrasArgs}]'==${PYLSP_VERSION}`;
+      `${pathVenvPython} -m pip install -U pip python-lsp-server[${installEtrasArgs}]==${PYLSP_VERSION}`;
   } else {
     installCmd =
       `${pythonCommand} -m venv ${pathVenv} && ` +
