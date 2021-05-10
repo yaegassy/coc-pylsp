@@ -83,7 +83,11 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   context.subscriptions.push(
     commands.registerCommand('pylsp.installServer', async () => {
+      if (client.serviceState !== 5) {
+        await client.stop();
+      }
       await installWrapper(pythonCommand, context);
+      client.start();
     })
   );
 
