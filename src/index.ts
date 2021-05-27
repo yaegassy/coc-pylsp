@@ -58,7 +58,8 @@ export async function activate(context: ExtensionContext): Promise<void> {
     }
   }
 
-  const pythonCommand = getPythonPath(extensionConfig);
+  const isRealpath = true;
+  const pythonCommand = getPythonPath(extensionConfig, isRealpath);
 
   // Install "pylsp" if it does not exist.
   if (!pylspPath) {
@@ -143,23 +144,27 @@ async function existsEnvPylsp(pythonPath: string): Promise<boolean> {
   }
 }
 
-function getPythonPath(config: WorkspaceConfiguration): string {
+function getPythonPath(config: WorkspaceConfiguration, isRealpath?: boolean): string {
   let pythonPath = config.get<string>('builtin.pythonPath', '');
   if (pythonPath) {
     return pythonPath;
   }
 
   try {
-    which.sync('python3');
-    pythonPath = 'python3';
+    pythonPath = which.sync('python3');
+    if (isRealpath) {
+      pythonPath = fs.realpathSync(pythonPath);
+    }
     return pythonPath;
   } catch (e) {
     // noop
   }
 
   try {
-    which.sync('python');
-    pythonPath = 'python';
+    pythonPath = which.sync('python');
+    if (isRealpath) {
+      pythonPath = fs.realpathSync(pythonPath);
+    }
     return pythonPath;
   } catch (e) {
     // noop
