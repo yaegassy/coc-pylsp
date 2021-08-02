@@ -1,7 +1,7 @@
 {
-  "name": "coc-pylsp",
+  "name": "@yaegassy/coc-pylsp",
   "version": "0.0.1",
-  "pylspVersion": "1.0.1",
+  "pylspVersion": "1.2.0",
   "description": "pylsp (python-lsp-server) extension for coc.nvim",
   "author": "yaegassy <yosstools@gmail.com>",
   "license": "MIT",
@@ -9,6 +9,7 @@
   "keywords": [
     "coc.nvim",
     "python",
+    "pylsp",
     "vim",
     "neovim"
   ],
@@ -18,6 +19,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yaegassy/coc-pylsp"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "lint": "eslint src --ext ts",
@@ -92,13 +96,63 @@
           },
           "uniqueItems": true
         },
+        "pylsp.plugins.flake8.config": {
+          "type": "string",
+          "default": null,
+          "description": "Path to the config file that will be the authoritative config source."
+        },
+        "pylsp.plugins.flake8.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable or disable the plugin."
+        },
+        "pylsp.plugins.flake8.exclude": {
+          "type": "array",
+          "default": null,
+          "description": "List of files or directories to exclude."
+        },
+        "pylsp.plugins.flake8.executable": {
+          "type": "string",
+          "default": "flake8",
+          "description": "Path to the flake8 executable."
+        },
+        "pylsp.plugins.flake8.filename": {
+          "type": "string",
+          "default": null,
+          "description": "Only check for filenames matching the patterns in this list."
+        },
+        "pylsp.plugins.flake8.hangClosing": {
+          "type": "boolean",
+          "default": null,
+          "description": "Hang closing bracket instead of matching indentation of opening bracket's line."
+        },
+        "pylsp.plugins.flake8.ignore": {
+          "type": "array",
+          "default": null,
+          "description": "List of errors and warnings to ignore (or skip)."
+        },
+        "pylsp.plugins.flake8.maxLineLength": {
+          "type": "integer",
+          "default": null,
+          "description": "Maximum allowed line length for the entirety of this run."
+        },
+        "pylsp.plugins.flake8.perFileIgnores": {
+          "type": "array",
+          "default": null,
+          "description": "A pairing of filenames and violation codes that defines which violations to ignore in a particular file, for example: `[\"file_path.py:W305,W304\"]`)."
+        },
+        "pylsp.plugins.flake8.select": {
+          "type": "array",
+          "default": null,
+          "description": "List of errors and warnings to enable."
+        },
         "pylsp.plugins.jedi.extra_paths": {
           "type": "array",
           "default": [],
           "description": "Define extra paths for jedi.Script."
         },
         "pylsp.plugins.jedi.env_vars": {
-          "type": "dictionary",
+          "type": "object",
           "default": null,
           "description": "Define environment variables for jedi.Script and Jedi.names."
         },
@@ -126,6 +180,29 @@
           "type": "boolean",
           "default": false,
           "description": "Enable fuzzy when requesting autocomplete."
+        },
+        "pylsp.plugins.jedi_completion.eager": {
+          "type": "boolean",
+          "default": false,
+          "description": "Resolve documentation and detail eagerly."
+        },
+        "pylsp.plugins.jedi_completion.resolve_at_most_labels": {
+          "type": "number",
+          "default": 25,
+          "description": "How many labels (at most) should be resolved?"
+        },
+        "pylsp.plugins.jedi_completion.cache_labels_for": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "pandas",
+            "numpy",
+            "tensorflow",
+            "matplotlib"
+          ],
+          "description": "Modules for which the labels should be cached."
         },
         "pylsp.plugins.jedi_definition.enabled": {
           "type": "boolean",
@@ -166,6 +243,11 @@
           "type": "boolean",
           "default": true,
           "description": "If True lists the names of all scopes instead of only the module namespace."
+        },
+        "pylsp.plugins.jedi_symbols.include_import_symbols": {
+          "type": "boolean",
+          "default": true,
+          "description": "If True includes symbols imported from other libraries."
         },
         "pylsp.plugins.mccabe.enabled": {
           "type": "boolean",
@@ -330,6 +412,11 @@
           "type": "boolean",
           "default": false,
           "description": "Enable or disable the plugin."
+        },
+        "pylsp.plugins.rope_completion.eager": {
+          "type": "boolean",
+          "default": false,
+          "description": "Resolve documentation and detail eagerly."
         },
         "pylsp.plugins.yapf.enabled": {
           "type": "boolean",
