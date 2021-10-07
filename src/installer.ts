@@ -19,11 +19,14 @@ export async function pylspInstall(pythonCommand: string, context: ExtensionCont
   }
 
   const statusItem = window.createStatusBarItem(0, { progress: true });
-  statusItem.text = `Install pylsp...`;
+  statusItem.text = `Install pylsp and related tools...`;
   statusItem.show();
 
-  const extensionConfig = workspace.getConfiguration('pylsp');
-  const extrasArgs = extensionConfig.get('builtin.extrasArgs', []);
+  const extConfig = workspace.getConfiguration('pylsp');
+  const extrasArgs = extConfig.get('builtin.installExtrasArgs', []);
+  const enableInstallPylspMypy = extConfig.get<boolean>('builtin.enableInstallPylspMypy', false);
+  const enableInstallPylsIsort = extConfig.get<boolean>('builtin.enableInstallPylsIsort', false);
+  const enableInstallPythonLspBlack = extConfig.get<boolean>('builtin.enableInstallPythonLspBlack', false);
 
   let installCmd: string;
   if (extrasArgs.length >= 1) {
@@ -37,15 +40,25 @@ export async function pylspInstall(pythonCommand: string, context: ExtensionCont
       `${pathVenvPython} install -U pip python-lsp-server==${PYLSP_VERSION}`;
   }
 
+  if (enableInstallPylspMypy) {
+    installCmd = installCmd.concat(' ', 'pylsp-mypy');
+  }
+  if (enableInstallPylsIsort) {
+    installCmd = installCmd.concat(' ', 'pyls-isort');
+  }
+  if (enableInstallPythonLspBlack) {
+    installCmd = installCmd.concat(' ', 'python-lsp-black');
+  }
+
   rimraf.sync(pathVenv);
   try {
-    window.showMessage(`Install pylsp...`);
+    window.showMessage(`Install pylsp and related tools...`);
     await exec(installCmd);
     statusItem.hide();
-    window.showMessage(`pylsp: installed!`);
+    window.showMessage(`pylsp and related tools: installed!`);
   } catch (error) {
     statusItem.hide();
-    window.showErrorMessage(`pylsp: install failed. | ${error}`);
+    window.showErrorMessage(`pylsp and related tools: install failed. | ${error}`);
     throw new Error();
   }
 }

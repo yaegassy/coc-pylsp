@@ -74,12 +74,27 @@
           "default": "",
           "description": "Python 3.x path (Absolute path) to be used for built-in install"
         },
-        "pylsp.builtin.extrasArgs": {
+        "pylsp.builtin.installExtrasArgs": {
           "type": "array",
           "default": [
             "all"
           ],
           "description": "Setting extras_require for built-in installation"
+        },
+        "pylsp.builtin.enableInstallPylspMypy": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable/Disable built-in install of pylsp-mypy"
+        },
+        "pylsp.builtin.enableInstallPylsIsort": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable/Disable built-in install of pyls-isort"
+        },
+        "pylsp.builtin.enableInstallPythonLspBlack": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable/Disable built-in install of python-lsp-black"
         },
         "pylsp.configurationSources": {
           "type": "array",
@@ -441,8 +456,12 @@
     },
     "commands": [
       {
+        "command": "pylsp.builtin.install",
+        "title": "Install python lsp server and related tools"
+      },
+      {
         "command": "pylsp.installServer",
-        "title": "Install python lsp server (builtin)"
+        "title": "(old command) Install python lsp server and related tools"
       }
     ]
   }
