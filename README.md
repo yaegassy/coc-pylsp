@@ -28,7 +28,7 @@ coc-pylsp detects and starts pylsp.
 1. current python3/python environment (e.g. pylsp in venv)
 1. builtin pylsp (Installation commands are also provided)
 
-## Bult-in install (pylsp and related tools)
+## Bult-in install (pylsp and 3rd party plugins)
 
 `coc-pylsp` allows you to create an extension-only "venv" and install "pylsp (python-lsp-server)" and "related tools" (e.g. pylsp-mypy).
 
