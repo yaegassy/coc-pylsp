@@ -55,6 +55,16 @@
     "onLanguage:python"
   ],
   "contributes": {
+    "rootPatterns": [
+      {
+        "filetype": "python",
+        "patterns": [
+          "setup.py",
+          "setup.cfg",
+          "pyproject.toml"
+        ]
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "coc-pylsp configuration",
