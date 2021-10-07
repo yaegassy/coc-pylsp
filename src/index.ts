@@ -4,29 +4,20 @@ import {
   LanguageClient,
   LanguageClientOptions,
   RevealOutputChannelOn,
-  ServerOptions,
   services,
-  workspace,
+  ServerOptions,
   window,
-  WorkspaceConfiguration,
+  workspace,
 } from 'coc.nvim';
 
 import fs from 'fs';
-import path from 'path';
-
-import child_process from 'child_process';
-import util from 'util';
-
-import which from 'which';
 
 import { pylspInstall } from './installer';
-
-const exec = util.promisify(child_process.exec);
+import { existsPythonImportModule, getBuiltinToolPath, getCurrentPythonPath } from './tool';
 
 export async function activate(context: ExtensionContext): Promise<void> {
-  const { subscriptions } = context;
-  const extensionConfig = workspace.getConfiguration('pylsp');
-  const enable = extensionConfig.enable;
+  const extConfig = workspace.getConfiguration('pylsp');
+  const enable = extConfig.enable;
   if (!enable) return;
 
   const extensionStoragePath = context.storagePath;
@@ -34,46 +25,43 @@ export async function activate(context: ExtensionContext): Promise<void> {
     fs.mkdirSync(extensionStoragePath, { recursive: true });
   }
 
+  const { subscriptions } = context;
+  const pythonCommand = getCurrentPythonPath(extConfig);
+
   // MEMO: Priority to detect pylsp
   //
   // 1. pylsp.commandPath setting
-  // 2. Module in the current python3 environment (e.g. venv)
+  // 2. Module in the current python3/python environment (e.g. venv)
   // 3. builtin pylsp
-  let isModule = false;
-  let pylspPath = extensionConfig.get('commandPath', '');
+  let existsPylspModule = false;
+  let pylspPath: string | undefined = extConfig.get('commandPath', '');
+  if (pylspPath) {
+    workspace.expand(pylspPath);
+    if (!fs.existsSync(pylspPath)) {
+      pylspPath = undefined;
+    }
+  }
   if (!pylspPath) {
-    // MEMO: require, await
-    if (await existsEnvPylsp(getPythonPath(extensionConfig))) {
-      pylspPath = 'dummy';
-      isModule = true;
-    } else if (
-      fs.existsSync(path.join(context.storagePath, 'pylsp', 'venv', 'Scripts', 'pylsp.exe')) ||
-      fs.existsSync(path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp'))
-    ) {
-      if (process.platform === 'win32') {
-        pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'Scripts', 'pylsp.exe');
-      } else {
-        pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp');
+    if (pythonCommand) {
+      if (await existsPythonImportModule(pythonCommand.env, 'pylsp')) {
+        pylspPath = 'dummy';
+        existsPylspModule = true;
+      }
+
+      if (!existsPylspModule) {
+        pylspPath = getBuiltinToolPath(context.storagePath, 'pylsp');
       }
     }
   }
 
-  const isRealpath = true;
-  const pythonCommand = getPythonPath(extensionConfig, isRealpath);
-
   // Install "pylsp" if it does not exist.
-  if (!pylspPath) {
+  if (!pylspPath && !existsPylspModule) {
     if (pythonCommand) {
-      await installWrapper(pythonCommand, context);
+      await installWrapper(pythonCommand.real, context);
     } else {
       window.showErrorMessage('python3/python command not found');
     }
-
-    if (process.platform === 'win32') {
-      pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'Scripts', 'pylsp.exe');
-    } else {
-      pylspPath = path.join(context.storagePath, 'pylsp', 'venv', 'bin', 'pylsp');
-    }
+    pylspPath = getBuiltinToolPath(context.storagePath, 'pylsp');
   }
 
   // If "pylsp" does not exist completely, terminate the process.
@@ -87,18 +75,15 @@ export async function activate(context: ExtensionContext): Promise<void> {
       if (client.serviceState !== 5) {
         await client.stop();
       }
-      await installWrapper(pythonCommand, context);
+      if (pythonCommand) {
+        await installWrapper(pythonCommand.real, context);
+      }
       client.start();
     })
   );
 
-  let command = pylspPath;
-  if (isModule) {
-    command = 'pylsp';
-  }
-
   const serverOptions: ServerOptions = {
-    command,
+    command: existsPylspModule ? 'pylsp' : pylspPath,
     args: ['-vv'],
   };
 
@@ -109,10 +94,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
     },
     outputChannelName: 'pylsp',
     revealOutputChannelOn: RevealOutputChannelOn.Never,
-    initializationOptions: extensionConfig.initializationOptions || {},
+    initializationOptions: extConfig.initializationOptions || {},
   };
 
-  const client = new LanguageClient('pylsp', 'Python language server', serverOptions, clientOptions);
+  const client = new LanguageClient('pylsp', 'Python lsp server', serverOptions, clientOptions);
 
   subscriptions.push(services.registLanguageClient(client));
 }
@@ -132,43 +117,4 @@ async function installWrapper(pythonCommand: string, context: ExtensionContext) 
   } else {
     return;
   }
-}
-
-async function existsEnvPylsp(pythonPath: string): Promise<boolean> {
-  const checkCmd = `${pythonPath} -m pylsp -h`;
-  try {
-    await exec(checkCmd);
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-function getPythonPath(config: WorkspaceConfiguration, isRealpath?: boolean): string {
-  let pythonPath = config.get<string>('builtin.pythonPath', '');
-  if (pythonPath) {
-    return pythonPath;
-  }
-
-  try {
-    pythonPath = which.sync('python3');
-    if (isRealpath) {
-      pythonPath = fs.realpathSync(pythonPath);
-    }
-    return pythonPath;
-  } catch (e) {
-    // noop
-  }
-
-  try {
-    pythonPath = which.sync('python');
-    if (isRealpath) {
-      pythonPath = fs.realpathSync(pythonPath);
-    }
-    return pythonPath;
-  } catch (e) {
-    // noop
-  }
-
-  return pythonPath;
 }

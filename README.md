@@ -25,7 +25,7 @@ coc-pylsp detects and starts pylsp.
 **Priority to detect**:
 
 1. pylsp.commandPath
-1. current python3 environment (e.g. pylsp in venv)
+1. current python3/python environment (e.g. pylsp in venv)
 1. builtin pylsp (Installation commands are also provided)
 
 ## Bult-in install
@@ -60,7 +60,7 @@ You can also run the installation command manually.
 ## Configuration options
 
 - `pylsp.enable`: Enable coc-pylsp extension, default: `true`
-- `pylsp.commandPath`: The custom path to the pylsp (Absolute path), default: `""`
+- `pylsp.commandPath`: Custom path to the pylsp command. `~` and `$HOME`, etc. can also be used. If not set, pylsp detected by the current python environment or extension venv's pylsp used will be used, default: `""`
 - `pylsp.pylsp.builtin.pythonPath`: Python 3.x path (Absolute path) to be used for built-in install, default: `""`
 - `pylsp.builtin.extrasArgs`: Setting extras_require for built-in installation, default: `["all"]`
 

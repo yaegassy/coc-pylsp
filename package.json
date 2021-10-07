@@ -67,7 +67,7 @@
         "pylsp.commandPath": {
           "type": "string",
           "default": "",
-          "description": "The custom path to the pylsp (Absolute path)."
+          "description": "Custom path to the pylsp command. ~ and $HOME, etc. can also be used. If not set, pylsp detected by the current python environment or extension venv's pylsp used will be used"
         },
         "pylsp.builtin.pythonPath": {
           "type": "string",
