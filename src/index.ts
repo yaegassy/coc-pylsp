@@ -70,8 +70,22 @@ export async function activate(context: ExtensionContext): Promise<void> {
     return;
   }
 
+  // old command. It is kept for compatibility,
+  // but will be removed in the future.
   context.subscriptions.push(
     commands.registerCommand('pylsp.installServer', async () => {
+      if (client.serviceState !== 5) {
+        await client.stop();
+      }
+      if (pythonCommand) {
+        await installWrapper(pythonCommand.real, context);
+      }
+      client.start();
+    })
+  );
+
+  context.subscriptions.push(
+    commands.registerCommand('pylsp.builtin.install', async () => {
       if (client.serviceState !== 5) {
         await client.stop();
       }
@@ -103,7 +117,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 }
 
 async function installWrapper(pythonCommand: string, context: ExtensionContext) {
-  const msg = 'Install "pylsp"?';
+  const msg = 'Install pylsp and related tools...?';
   context.workspaceState;
 
   let ret = 0;
