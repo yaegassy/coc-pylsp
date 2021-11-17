@@ -461,6 +461,16 @@
           },
           "uniqueItems": true,
           "description": "The name of the folder in which rope stores project configurations and data.  Pass `null` for not using such a folder at all."
+        },
+        "pylsp.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between coc.nvim and the Python LSP Server."
         }
       }
     },
