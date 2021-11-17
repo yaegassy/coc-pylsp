@@ -111,6 +111,7 @@ You can also run the installation command manually.
 - `pylsp.builtin.enableInstallPylspMypy`: Enable/Disable built-in install of `pylsp-mypy`, default: `false`
 - `pylsp.builtin.enableInstallPylsIsort`: Enable/Disable built-in install of `pyls-isort`, default: `false`
 - `pylsp.builtin.enableInstallPythonLspBlack`: Enable/Disable built-in install of `python-lsp-black`, default: `false`
+- `pylsp.trace.server`: Traces the communication between coc.nvim and the Python LSP Server, default: `"off"`
 
 For other settings, Check the "configuration" section of [package.json](/package.json).
 
