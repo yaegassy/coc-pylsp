@@ -216,7 +216,7 @@
           "default": 25,
           "description": "How many labels and snippets (at most) should be resolved?"
         },
-        "pylsp.plugins.jedi_completion.cache_labels_for": {
+        "pylsp.plugins.jedi_completion.cache_for": {
           "type": "array",
           "items": {
             "type": "string"
@@ -227,7 +227,7 @@
             "tensorflow",
             "matplotlib"
           ],
-          "description": "Modules for which the labels should be cached."
+          "description": "Modules for which labels and snippets should be cached."
         },
         "pylsp.plugins.jedi_definition.enabled": {
           "type": "boolean",
