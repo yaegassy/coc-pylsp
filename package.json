@@ -211,10 +211,10 @@
           "default": false,
           "description": "Resolve documentation and detail eagerly."
         },
-        "pylsp.plugins.jedi_completion.resolve_at_most_labels": {
+        "pylsp.plugins.jedi_completion.resolve_at_most": {
           "type": "number",
           "default": 25,
-          "description": "How many labels (at most) should be resolved?"
+          "description": "How many labels and snippets (at most) should be resolved?"
         },
         "pylsp.plugins.jedi_completion.cache_labels_for": {
           "type": "array",
