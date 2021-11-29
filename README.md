@@ -102,10 +102,34 @@ You can also run the installation command manually.
 :CocComannd pylsp.builtin.install
 ```
 
+## Use tcp mode
+
+To use the tcp mode, set `pylsp.connectionMode` to `'tcp'`. Also, pylsp needs to be started in tcp mode separately.
+
+**coc-settings.json**:
+
+```json
+{
+  "pylsp.connectionMode": "tcp"
+}
+```
+
+**How to start pylsp in tcp mode**:
+
+```sh
+# By default, host is 127.0.0.1 and port 2087 is set
+pylsp --tcp
+# Or specify any host (--host) and port (--port)
+pylsp --tcp --host 127.0.0.1 --port 2087
+```
+
 ## Configuration options
 
 - `pylsp.enable`: Enable coc-pylsp extension, default: `true`
 - `pylsp.commandPath`: Custom path to the pylsp command. `~` and `$HOME`, etc. can also be used. If not set, pylsp detected by the current python environment or extension venv's pylsp used will be used, default: `""`
+- `pylsp.connectionMode`: Controls the communication method to pylsp, valid option `["stdio", "tcp"]`, default: `stdio`
+- `pylsp.tcpHost`: Specifies the host name to connect pylsp. This setting only works with connectionMode is 'tcp', default: `"127.0.0.1"`
+- `pylsp.tcpPort`: Specifies the port to connect pylsp. This setting only works with connectionMode is 'tcp', default: `2087`
 - `pylsp.pylsp.builtin.pythonPath`: Python 3.x path (Absolute path) to be used for built-in install, default: `""`
 - `pylsp.builtin.installExtrasArgs`: Setting extras_require for built-in installation, default: `["all"]`
 - `pylsp.builtin.enableInstallPylspMypy`: Enable/Disable built-in install of `pylsp-mypy`, default: `false`
