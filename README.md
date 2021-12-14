@@ -69,6 +69,18 @@ To "enable" it, change each setting in `coc-settings.json`.
 }
 ```
 
+It is also possible to specify the version of the third party tool to be installed
+
+```jsonc
+{
+  // snip...
+  "pylsp.builtin.pylspMypyVersion": "0.5.2",
+  "pylsp.builtin.pylsIsortVersion": "0.2.2",
+  "pylsp.builtin.pythonLspBlackVersion": "1.0.1",
+  // snip...
+}
+```
+
 **python-lsp-black tips**:
 
 If you have `yapf` or `autopep8` installed, you may experience unexpected results.
@@ -135,6 +147,9 @@ pylsp --tcp --host 127.0.0.1 --port 2087
 - `pylsp.builtin.enableInstallPylspMypy`: Enable/Disable built-in install of `pylsp-mypy`, default: `false`
 - `pylsp.builtin.enableInstallPylsIsort`: Enable/Disable built-in install of `pyls-isort`, default: `false`
 - `pylsp.builtin.enableInstallPythonLspBlack`: Enable/Disable built-in install of `python-lsp-black`, default: `false`
+- `pylsp.builtin.pylspMypyVersion`: Version of pylsp-mypy for built-in install, e.g. "0.5.2", default: `""`
+- `pylsp.builtin.pylsIsortVersion`: Version of pyls-isort for built-in install, e.g. "0.2.2", default: `""`
+- `pylsp.builtin.pythonLspBlackVersion`: Version of python-lsp-black for built-in install, e.g. "1.0.1" default: `""`
 - `pylsp.trace.server`: Traces the communication between coc.nvim and the Python LSP Server, default: `"off"`
 
 For other settings, Check the "configuration" section of [package.json](/package.json).

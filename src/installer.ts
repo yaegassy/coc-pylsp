@@ -27,6 +27,9 @@ export async function pylspInstall(pythonCommand: string, context: ExtensionCont
   const enableInstallPylspMypy = extConfig.get<boolean>('builtin.enableInstallPylspMypy', false);
   const enableInstallPylsIsort = extConfig.get<boolean>('builtin.enableInstallPylsIsort', false);
   const enableInstallPythonLspBlack = extConfig.get<boolean>('builtin.enableInstallPythonLspBlack', false);
+  const pylspMypyVersion = extConfig.get<string>('builtin.pylspMypyVersion', '');
+  const pylsIsortVersion = extConfig.get<string>('builtin.pylsIsortVersion', '');
+  const pythonLspBlackVersion = extConfig.get<string>('builtin.pythonLspBlackVersion', '');
 
   let installCmd: string;
   if (extrasArgs.length >= 1) {
@@ -41,13 +44,16 @@ export async function pylspInstall(pythonCommand: string, context: ExtensionCont
   }
 
   if (enableInstallPylspMypy) {
-    installCmd = installCmd.concat(' ', 'pylsp-mypy');
+    const installPylspMypyStr = installToolVersionStr('pylsp-mypy', pylspMypyVersion);
+    installCmd = installCmd.concat(' ', installPylspMypyStr);
   }
   if (enableInstallPylsIsort) {
-    installCmd = installCmd.concat(' ', 'pyls-isort');
+    const installPylsIsortStr = installToolVersionStr('pyls-isort', pylsIsortVersion);
+    installCmd = installCmd.concat(' ', installPylsIsortStr);
   }
   if (enableInstallPythonLspBlack) {
-    installCmd = installCmd.concat(' ', 'python-lsp-black');
+    const installPythonLspBlackStr = installToolVersionStr('python-lsp-black', pythonLspBlackVersion);
+    installCmd = installCmd.concat(' ', installPythonLspBlackStr);
   }
 
   rimraf.sync(pathVenv);
@@ -61,4 +67,16 @@ export async function pylspInstall(pythonCommand: string, context: ExtensionCont
     window.showErrorMessage(`pylsp and related tools: install failed. | ${error}`);
     throw new Error();
   }
+}
+
+function installToolVersionStr(name: string, version?: string): string {
+  let installStr: string;
+
+  if (version) {
+    installStr = `${name}==${version}`;
+  } else {
+    installStr = `${name}`;
+  }
+
+  return installStr;
 }
