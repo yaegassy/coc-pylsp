@@ -132,6 +132,21 @@
           "default": false,
           "description": "Enable/Disable built-in install of python-lsp-black"
         },
+        "pylsp.builtin.pylspMypyVersion": {
+          "type": "string",
+          "default": "",
+          "description": "Version of pylsp-mypy for built-in install"
+        },
+        "pylsp.builtin.pylsIsortVersion": {
+          "type": "string",
+          "default": "",
+          "description": "Version of pyls-isort for built-in install"
+        },
+        "pylsp.builtin.pythonLspBlackVersion": {
+          "type": "string",
+          "default": "",
+          "description": "Version of python-lsp-black for built-in install"
+        },
         "pylsp.configurationSources": {
           "type": "array",
           "default": [
