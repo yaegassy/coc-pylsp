@@ -395,6 +395,11 @@
           "default": null,
           "description": "Set maximum allowed line length."
         },
+        "pylsp.plugins.pycodestyle.indentSize": {
+          "type": "integer",
+          "default": null,
+          "description": "Set indentation spaces."
+        },
         "pylsp.plugins.pydocstyle.enabled": {
           "type": "boolean",
           "default": false,
