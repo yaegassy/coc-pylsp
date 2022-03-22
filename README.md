@@ -111,7 +111,7 @@ The first time you use coc-pylsp, if pylsp is not detected, you will be prompted
 You can also run the installation command manually.
 
 ```vim
-:CocComannd pylsp.builtin.install
+:CocCommand pylsp.builtin.install
 ```
 
 ## Use tcp mode
