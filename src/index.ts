@@ -4,15 +4,15 @@ import {
   LanguageClient,
   LanguageClientOptions,
   RevealOutputChannelOn,
-  services,
   ServerOptions,
+  services,
+  ServiceStat,
   window,
   workspace,
 } from 'coc.nvim';
 
 import fs from 'fs';
 import net from 'net';
-
 import { pylspInstall } from './installer';
 import { existsPythonImportModule, getBuiltinToolPath, getCurrentPythonPath } from './tool';
 
@@ -81,7 +81,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   // but will be removed in the future.
   context.subscriptions.push(
     commands.registerCommand('pylsp.installServer', async () => {
-      if (client.serviceState !== 5) {
+      if (client.serviceState !== ServiceStat.Stopped) {
         await client.stop();
       }
       if (pythonCommand) {
@@ -93,7 +93,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   context.subscriptions.push(
     commands.registerCommand('pylsp.builtin.install', async () => {
-      if (client.serviceState !== 5) {
+      if (client.serviceState !== ServiceStat.Stopped) {
         await client.stop();
       }
       if (pythonCommand) {
@@ -150,11 +150,8 @@ function useLanguageServerOverStdio(lsCommand: string): ServerOptions {
 
 async function installWrapper(pythonCommand: string, context: ExtensionContext) {
   const msg = 'Install pylsp and related tools...?';
-  context.workspaceState;
-
-  let ret = 0;
-  ret = await window.showQuickpick(['Yes', 'Cancel'], msg);
-  if (ret === 0) {
+  const ret = await window.showPrompt(msg);
+  if (ret) {
     try {
       await pylspInstall(pythonCommand, context);
     } catch (e) {
