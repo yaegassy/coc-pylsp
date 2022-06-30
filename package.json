@@ -74,6 +74,16 @@
           "default": true,
           "description": "Enable coc-pylsp extension."
         },
+        "pylsp.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between coc.nvim and the Python LSP Server."
+        },
         "pylsp.commandPath": {
           "type": "string",
           "default": "",
@@ -163,7 +173,10 @@
           "uniqueItems": true
         },
         "pylsp.plugins.flake8.config": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "default": null,
           "description": "Path to the config file that will be the authoritative config source."
         },
@@ -174,7 +187,10 @@
         },
         "pylsp.plugins.flake8.exclude": {
           "type": "array",
-          "default": null,
+          "default": [],
+          "items": {
+            "type": "string"
+          },
           "description": "List of files or directories to exclude."
         },
         "pylsp.plugins.flake8.executable": {
@@ -183,52 +199,88 @@
           "description": "Path to the flake8 executable."
         },
         "pylsp.plugins.flake8.filename": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "default": null,
           "description": "Only check for filenames matching the patterns in this list."
         },
         "pylsp.plugins.flake8.hangClosing": {
-          "type": "boolean",
+          "type": [
+            "boolean",
+            "null"
+          ],
           "default": null,
           "description": "Hang closing bracket instead of matching indentation of opening bracket's line."
         },
         "pylsp.plugins.flake8.ignore": {
           "type": "array",
-          "default": null,
+          "default": [],
+          "items": {
+            "type": "string"
+          },
           "description": "List of errors and warnings to ignore (or skip)."
         },
         "pylsp.plugins.flake8.maxLineLength": {
-          "type": "integer",
+          "type": [
+            "integer",
+            "null"
+          ],
           "default": null,
           "description": "Maximum allowed line length for the entirety of this run."
         },
         "pylsp.plugins.flake8.indentSize": {
-          "type": "integer",
+          "type": [
+            "integer",
+            "null"
+          ],
           "default": null,
           "description": "Set indentation spaces."
         },
         "pylsp.plugins.flake8.perFileIgnores": {
-          "type": "array",
-          "default": null,
+          "type": [
+            "array"
+          ],
+          "default": [],
+          "items": {
+            "type": "string"
+          },
           "description": "A pairing of filenames and violation codes that defines which violations to ignore in a particular file, for example: `[\"file_path.py:W305,W304\"]`)."
         },
         "pylsp.plugins.flake8.select": {
-          "type": "array",
+          "type": [
+            "array",
+            "null"
+          ],
           "default": null,
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
           "description": "List of errors and warnings to enable."
         },
         "pylsp.plugins.jedi.extra_paths": {
           "type": "array",
           "default": [],
+          "items": {
+            "type": "string"
+          },
           "description": "Define extra paths for jedi.Script."
         },
         "pylsp.plugins.jedi.env_vars": {
-          "type": "object",
+          "type": [
+            "object",
+            "null"
+          ],
           "default": null,
           "description": "Define environment variables for jedi.Script and Jedi.names."
         },
         "pylsp.plugins.jedi.environment": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "default": null,
           "description": "Define environment for jedi.Script and Jedi.names."
         },
@@ -337,7 +389,7 @@
         },
         "pylsp.plugins.preload.modules": {
           "type": "array",
-          "default": null,
+          "default": [],
           "items": {
             "type": "string"
           },
@@ -351,7 +403,7 @@
         },
         "pylsp.plugins.pycodestyle.exclude": {
           "type": "array",
-          "default": null,
+          "default": [],
           "items": {
             "type": "string"
           },
@@ -360,7 +412,7 @@
         },
         "pylsp.plugins.pycodestyle.filename": {
           "type": "array",
-          "default": null,
+          "default": [],
           "items": {
             "type": "string"
           },
@@ -369,7 +421,7 @@
         },
         "pylsp.plugins.pycodestyle.select": {
           "type": "array",
-          "default": null,
+          "default": [],
           "items": {
             "type": "string"
           },
@@ -378,7 +430,7 @@
         },
         "pylsp.plugins.pycodestyle.ignore": {
           "type": "array",
-          "default": null,
+          "default": [],
           "items": {
             "type": "string"
           },
@@ -386,17 +438,26 @@
           "description": "Ignore errors and warnings"
         },
         "pylsp.plugins.pycodestyle.hangClosing": {
-          "type": "boolean",
+          "type": [
+            "boolean",
+            "null"
+          ],
           "default": null,
           "description": "Hang closing bracket instead of matching indentation of opening bracket's line."
         },
         "pylsp.plugins.pycodestyle.maxLineLength": {
-          "type": "number",
+          "type": [
+            "number",
+            "null"
+          ],
           "default": null,
           "description": "Set maximum allowed line length."
         },
         "pylsp.plugins.pycodestyle.indentSize": {
-          "type": "integer",
+          "type": [
+            "integer",
+            "null"
+          ],
           "default": null,
           "description": "Set indentation spaces."
         },
@@ -406,17 +467,21 @@
           "description": "Enable or disable the plugin."
         },
         "pylsp.plugins.pydocstyle.convention": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "default": null,
           "enum": [
             "pep257",
-            "numpy"
+            "numpy",
+            null
           ],
           "description": "Choose the basic list of checked errors by specifying an existing convention."
         },
         "pylsp.plugins.pydocstyle.addIgnore": {
           "type": "array",
-          "default": null,
+          "default": [],
           "items": {
             "type": "string"
           },
@@ -425,7 +490,7 @@
         },
         "pylsp.plugins.pydocstyle.addSelect": {
           "type": "array",
-          "default": null,
+          "default": [],
           "items": {
             "type": "string"
           },
@@ -434,7 +499,7 @@
         },
         "pylsp.plugins.pydocstyle.ignore": {
           "type": "array",
-          "default": null,
+          "default": [],
           "items": {
             "type": "string"
           },
@@ -443,7 +508,7 @@
         },
         "pylsp.plugins.pydocstyle.select": {
           "type": "array",
-          "default": null,
+          "default": [],
           "items": {
             "type": "string"
           },
@@ -472,7 +537,7 @@
         },
         "pylsp.plugins.pylint.args": {
           "type": "array",
-          "default": null,
+          "default": [],
           "items": {
             "type": "string"
           },
@@ -480,7 +545,10 @@
           "description": "Arguments to pass to pylint."
         },
         "pylsp.plugins.pylint.executable": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "default": null,
           "description": "Executable to run pylint with. Enabling this will run pylint on unsaved files via stdin. Can slow down workflow. Only works with python3."
         },
@@ -500,28 +568,24 @@
           "description": "Enable or disable the plugin."
         },
         "pylsp.rope.extensionModules": {
-          "type": "string",
+          "type": [
+            "null",
+            "string"
+          ],
           "default": null,
           "description": "Builtin and c-extension modules that are allowed to be imported and inspected by rope."
         },
         "pylsp.rope.ropeFolder": {
-          "type": "array",
+          "type": [
+            "null",
+            "array"
+          ],
           "default": null,
           "items": {
             "type": "string"
           },
           "uniqueItems": true,
           "description": "The name of the folder in which rope stores project configurations and data.  Pass `null` for not using such a folder at all."
-        },
-        "pylsp.trace.server": {
-          "type": "string",
-          "enum": [
-            "off",
-            "messages",
-            "verbose"
-          ],
-          "default": "off",
-          "description": "Traces the communication between coc.nvim and the Python LSP Server."
         }
       }
     },

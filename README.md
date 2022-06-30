@@ -138,11 +138,12 @@ pylsp --tcp --host 127.0.0.1 --port 2087
 ## Configuration options
 
 - `pylsp.enable`: Enable coc-pylsp extension, default: `true`
+- `pylsp.trace.server`: Traces the communication between coc.nvim and the Python LSP Server, default: `"off"`
 - `pylsp.commandPath`: Custom path to the pylsp command. `~` and `$HOME`, etc. can also be used. If not set, pylsp detected by the current python environment or extension venv's pylsp used will be used, default: `""`
 - `pylsp.connectionMode`: Controls the communication method to pylsp, valid option `["stdio", "tcp"]`, default: `stdio`
 - `pylsp.tcpHost`: Specifies the host name to connect pylsp. This setting only works with connectionMode is 'tcp', default: `"127.0.0.1"`
 - `pylsp.tcpPort`: Specifies the port to connect pylsp. This setting only works with connectionMode is 'tcp', default: `2087`
-- `pylsp.pylsp.builtin.pythonPath`: Python 3.x path (Absolute path) to be used for built-in install, default: `""`
+- `pylsp.builtin.pythonPath`: Python 3.x path (Absolute path) to be used for built-in install, default: `""`
 - `pylsp.builtin.installExtrasArgs`: Setting extras_require for built-in installation, default: `["all"]`
 - `pylsp.builtin.enableInstallPylspMypy`: Enable/Disable built-in install of `pylsp-mypy`, default: `false`
 - `pylsp.builtin.enableInstallPylsIsort`: Enable/Disable built-in install of `pyls-isort`, default: `false`
@@ -150,7 +151,6 @@ pylsp --tcp --host 127.0.0.1 --port 2087
 - `pylsp.builtin.pylspMypyVersion`: Version of pylsp-mypy for built-in install, e.g. "0.5.2", default: `""`
 - `pylsp.builtin.pylsIsortVersion`: Version of pyls-isort for built-in install, e.g. "0.2.2", default: `""`
 - `pylsp.builtin.pythonLspBlackVersion`: Version of python-lsp-black for built-in install, e.g. "1.0.1" default: `""`
-- `pylsp.trace.server`: Traces the communication between coc.nvim and the Python LSP Server, default: `"off"`
 
 For other settings, Check the "configuration" section of [package.json](/package.json).
 
