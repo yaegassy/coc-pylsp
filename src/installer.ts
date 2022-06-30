@@ -58,10 +58,10 @@ export async function pylspInstall(pythonCommand: string, context: ExtensionCont
 
   rimraf.sync(pathVenv);
   try {
-    window.showMessage(`Install pylsp and related tools...`);
+    window.showInformationMessage(`Install pylsp and related tools...`);
     await exec(installCmd);
     statusItem.hide();
-    window.showMessage(`pylsp and related tools: installed!`);
+    window.showInformationMessage(`pylsp and related tools: installed!`);
   } catch (error) {
     statusItem.hide();
     window.showErrorMessage(`pylsp and related tools: install failed. | ${error}`);
