@@ -142,6 +142,11 @@
           "default": false,
           "description": "Enable/Disable built-in install of python-lsp-black"
         },
+        "pylsp.builtin.enableInstallPylspRope": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable/Disable built-in install of pylsp-rope"
+        },
         "pylsp.builtin.pylspMypyVersion": {
           "type": "string",
           "default": "",
@@ -156,6 +161,11 @@
           "type": "string",
           "default": "",
           "description": "Version of python-lsp-black for built-in install"
+        },
+        "pylsp.builtin.pylspRopeVersion": {
+          "type": "string",
+          "default": "",
+          "description": "Version of pylsp-rope for built-in install"
         },
         "pylsp.configurationSources": {
           "type": "array",
