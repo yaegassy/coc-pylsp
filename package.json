@@ -372,6 +372,11 @@
           "default": true,
           "description": "If follow_imports is True will decide if it follow builtin imports."
         },
+        "pylsp.plugins.jedi_definition.follow_builtin_definitions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Follow builtin and extension definitions to stubs."
+        },
         "pylsp.plugins.jedi_hover.enabled": {
           "type": "boolean",
           "default": true,
@@ -477,6 +482,11 @@
           ],
           "default": null,
           "description": "Hang closing bracket instead of matching indentation of opening bracket's line."
+        },
+        "pylsp.plugins.flake8.maxComplexity": {
+          "type": "integer",
+          "default": null,
+          "description": "Maximum allowed complexity threshold."
         },
         "pylsp.plugins.pycodestyle.maxLineLength": {
           "type": [
