@@ -147,6 +147,11 @@
           "default": false,
           "description": "Enable/Disable built-in install of pylsp-rope"
         },
+        "pylsp.builtin.enableInstallPythonLspRuff": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable/Disable built-in install of pylsp-lsp-ruff"
+        },
         "pylsp.builtin.pylspMypyVersion": {
           "type": "string",
           "default": "",
@@ -166,6 +171,11 @@
           "type": "string",
           "default": "",
           "description": "Version of pylsp-rope for built-in install"
+        },
+        "pylsp.builtin.pythonLspRuffVersion": {
+          "type": "string",
+          "default": "",
+          "description": "Version of python-lsp-ruff for built-in install"
         },
         "pylsp.configurationSources": {
           "type": "array",
@@ -643,6 +653,67 @@
           },
           "uniqueItems": true,
           "description": "The name of the folder in which rope stores project configurations and data.  Pass `null` for not using such a folder at all."
+        },
+        "pylsp.plugins.ruff.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "boolean to enable/disable the plugin."
+        },
+        "pylsp.plugins.ruff.config": {
+          "type": [
+            "string",
+            null
+          ],
+          "default": null,
+          "description": "Path to optional pyproject.toml file."
+        },
+        "pylsp.plugins.ruff.exclude": {
+          "type": [
+            "array",
+            null
+          ],
+          "default": null,
+          "description": "Exclude files from being checked by ruff."
+        },
+        "pylsp.plugins.ruff.executable": {
+          "type": [
+            "string",
+            null
+          ],
+          "default": "ruff",
+          "description": " Path to the ruff executable. Assumed to be in PATH by default."
+        },
+        "pylsp.plugins.ruff.ignore": {
+          "type": [
+            "array",
+            null
+          ],
+          "default": null,
+          "description": "Error codes to ignore."
+        },
+        "pylsp.plugins.ruff.lineLength": {
+          "type": [
+            "number",
+            null
+          ],
+          "default": null,
+          "description": "Set the line-length for length checks."
+        },
+        "pylsp.plugins.ruff.perFileIgnore": {
+          "type": [
+            "object",
+            null
+          ],
+          "default": null,
+          "description": "File-specific error codes to be ignored."
+        },
+        "pylsp.plugins.ruff.select": {
+          "type": [
+            "array",
+            null
+          ],
+          "default": null,
+          "description": "List of error codes to enable."
         }
       }
     },

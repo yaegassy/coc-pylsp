@@ -55,6 +55,7 @@ It also supports the installation of "3rd Party Plugins".
   - [pyls-isort](https://github.com/paradoxxxzero/pyls-isort)
   - [python-lsp-black](https://github.com/python-lsp/python-lsp-black)
   - [pylsp-rope](https://github.com/python-rope/pylsp-rope)
+  - [python-lsp-ruff](https://github.com/python-lsp/python-lsp-ruff)
 
 By default, the installation of 3rd Party Plugins is "disabled".
 
@@ -67,6 +68,7 @@ To "enable" it, change each setting in `coc-settings.json`.
   "pylsp.builtin.enableInstallPylsIsort": true,
   "pylsp.builtin.enableInstallPythonLspBlack": true,
   "pylsp.builtin.enableInstallPylspRope": true,
+  "pylsp.builtin.enableInstallPythonLspRuff": true,
   // snip...
 }
 ```
@@ -80,6 +82,7 @@ It is also possible to specify the version of the third party tool to be install
   "pylsp.builtin.pylsIsortVersion": "0.2.2",
   "pylsp.builtin.pythonLspBlackVersion": "1.0.1",
   "pylsp.builtin.pylspRopeVersion": "0.1.10",
+  "pylsp.builtin.pythonLspRuffVersion": "1.0.5",
   // snip...
 }
 ```
@@ -152,10 +155,12 @@ pylsp --tcp --host 127.0.0.1 --port 2087
 - `pylsp.builtin.enableInstallPylsIsort`: Enable/Disable built-in install of `pyls-isort`, default: `false`
 - `pylsp.builtin.enableInstallPythonLspBlack`: Enable/Disable built-in install of `python-lsp-black`, default: `false`
 - `pylsp.builtin.enableInstallPylspRope`: Enable/Disable built-in install of `pylsp-rope`, default: `false`
+- `pylsp.builtin.enableInstallPythonLspRuff`: Enable/Disable built-in install of pylsp-lsp-ruff, default: `true`
 - `pylsp.builtin.pylspMypyVersion`: Version of pylsp-mypy for built-in install, e.g. "0.5.2", default: `""`
 - `pylsp.builtin.pylsIsortVersion`: Version of pyls-isort for built-in install, e.g. "0.2.2", default: `""`
 - `pylsp.builtin.pythonLspBlackVersion`: Version of python-lsp-black for built-in install, e.g. "1.0.1" default: `""`
 - `pylsp.builtin.pylspRopeVersion`: Version of pylsp-rope for built-in install, default: `""`
+- `pylsp.builtin.pythonLspRuffVersion`: Version of python-lsp-ruff for built-in install, default: `""`
 
 For other settings, Check the "configuration" section of [package.json](/package.json).
 
