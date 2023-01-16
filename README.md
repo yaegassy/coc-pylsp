@@ -35,7 +35,7 @@ coc-pylsp detects and starts pylsp.
 By default, it is installed with `pip install python-lsp-server[all]`. (extras_require).
 
 <!-- markdownlint-disable-next-line -->
-gf you want to change "extras_require", please change the `pylsp.builtin.installExtrasArgs` setting
+If you want to change "extras_require", please change the `pylsp.builtin.installExtrasArgs` setting
 
 **example**:
 
