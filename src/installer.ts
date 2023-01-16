@@ -29,11 +29,13 @@ export async function pylspInstall(pythonCommand: string, context: ExtensionCont
   const enableInstallPylsIsort = extConfig.get<boolean>('builtin.enableInstallPylsIsort', false);
   const enableInstallPythonLspBlack = extConfig.get<boolean>('builtin.enableInstallPythonLspBlack', false);
   const enableInstallPylspRope = extConfig.get<boolean>('builtin.enableInstallPylspRope', false);
+  const enableInstallPythonLspRuff = extConfig.get<boolean>('builtin.enableInstallPythonLspRuff', false);
 
   const pylspMypyVersion = extConfig.get<string>('builtin.pylspMypyVersion', '');
   const pylsIsortVersion = extConfig.get<string>('builtin.pylsIsortVersion', '');
   const pythonLspBlackVersion = extConfig.get<string>('builtin.pythonLspBlackVersion', '');
   const pylspRopeVersion = extConfig.get<string>('builtin.pylspRopeVersion', '');
+  const pythonLspRuffVersion = extConfig.get<string>('builtin.pythonLspRuffVersion', '');
 
   let installCmd: string;
   if (extrasArgs.length >= 1) {
@@ -62,6 +64,10 @@ export async function pylspInstall(pythonCommand: string, context: ExtensionCont
   if (enableInstallPylspRope) {
     const installPylspRopeStr = installToolVersionStr('pylsp-rope', pylspRopeVersion);
     installCmd = installCmd.concat(' ', installPylspRopeStr);
+  }
+  if (enableInstallPythonLspRuff) {
+    const installPythonLspRuff = installToolVersionStr('python-lsp-ruff', pythonLspRuffVersion);
+    installCmd = installCmd.concat(' ', installPythonLspRuff);
   }
 
   rimraf.sync(pathVenv);
