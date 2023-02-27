@@ -713,6 +713,14 @@
           ],
           "default": null,
           "description": "List of error codes to enable."
+        },
+        "pylsp.plugins.ruff.extendSelect": {
+          "type": [
+            "array",
+            null
+          ],
+          "default": null,
+          "description": "Same as select, but append to existing error codes."
         }
       }
     },
