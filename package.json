@@ -690,6 +690,14 @@
           "default": null,
           "description": "Error codes to ignore."
         },
+        "pylsp.plugins.ruff.extendIgnore": {
+          "type": [
+            "array",
+            null
+          ],
+          "default": null,
+          "description": "Same as ignore, but append to existing ignores."
+        },
         "pylsp.plugins.ruff.lineLength": {
           "type": [
             "number",
