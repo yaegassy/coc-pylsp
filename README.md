@@ -149,6 +149,7 @@ pylsp --tcp --host 127.0.0.1 --port 2087
 - `pylsp.connectionMode`: Controls the communication method to pylsp, valid option `["stdio", "tcp"]`, default: `stdio`
 - `pylsp.tcpHost`: Specifies the host name to connect pylsp. This setting only works with connectionMode is 'tcp', default: `"127.0.0.1"`
 - `pylsp.tcpPort`: Specifies the port to connect pylsp. This setting only works with connectionMode is 'tcp', default: `2087`
+- `pylsp.disableProgressNotifications`: Disable the initialization and workdone progress notifications, default: `true`
 - `pylsp.builtin.pythonPath`: Python 3.x path (Absolute path) to be used for built-in install, default: `""`
 - `pylsp.builtin.installExtrasArgs`: Setting extras_require for built-in installation, default: `["all"]`
 - `pylsp.builtin.enableInstallPylspMypy`: Enable/Disable built-in install of `pylsp-mypy`, default: `false`

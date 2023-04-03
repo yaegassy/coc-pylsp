@@ -119,6 +119,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     outputChannelName: 'pylsp',
     revealOutputChannelOn: RevealOutputChannelOn.Never,
     initializationOptions: extConfig.initializationOptions || {},
+    disabledFeatures: getDisabledFeatures(),
   };
 
   const client = new LanguageClient('pylsp', 'Python lsp server', serverOptions, clientOptions);
@@ -160,4 +161,14 @@ async function installWrapper(pythonCommand: string, context: ExtensionContext) 
   } else {
     return;
   }
+}
+
+function getDisabledFeatures(): string[] {
+  const disabledFeatures: string[] = [];
+
+  if (workspace.getConfiguration('pylsp').get<boolean>('disableProgressNotifications')) {
+    disabledFeatures.push('progress');
+  }
+
+  return disabledFeatures;
 }

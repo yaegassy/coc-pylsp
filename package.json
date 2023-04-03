@@ -114,6 +114,11 @@
           "default": "2087",
           "markdownDescription": "Specifies the port to connect pylsp. This setting only works with connectionMode is 'tcp'."
         },
+        "pylsp.disableProgressNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Disable the initialization and workdone progress notifications"
+        },
         "pylsp.builtin.pythonPath": {
           "type": "string",
           "default": "",
