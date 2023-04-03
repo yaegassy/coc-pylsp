@@ -60,6 +60,7 @@
         "patterns": [
           "setup.py",
           "setup.cfg",
+          "Pipfile",
           "pyproject.toml"
         ]
       }
