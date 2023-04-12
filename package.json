@@ -735,6 +735,16 @@
           ],
           "default": null,
           "description": "Same as select, but append to existing error codes."
+        },
+        "pylsp.plugins.ruff.format": {
+          "type": [
+            "array",
+            null
+          ],
+          "default": [
+            "I"
+          ],
+          "description": "List of error codes to fix during formatting."
         }
       }
     },
