@@ -745,6 +745,14 @@
             "I"
           ],
           "description": "List of error codes to fix during formatting."
+        },
+        "pylsp.plugins.ruff.severities": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "default": null,
+          "description": "Dictionary of custom severity levels for specific codes."
         }
       }
     },
