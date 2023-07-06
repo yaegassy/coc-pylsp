@@ -659,6 +659,36 @@
           "uniqueItems": true,
           "description": "The name of the folder in which rope stores project configurations and data.  Pass `null` for not using such a folder at all."
         },
+        "pylsp.plugins.black.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "boolean to enable/disable the plugin."
+        },
+        "pylsp.plugins.black.cache_config": {
+          "type": "boolean",
+          "default": false,
+          "description": " a boolean to enable black configuration caching."
+        },
+        "pylsp.plugins.black.line_length": {
+          "type": "number",
+          "default": 88,
+          "description": "an integer that maps to black's max-line-length setting. Defaults to 88 (same as black's default). This can also be set through black's configuration files, which should be preferred for multi-user projects."
+        },
+        "pylsp.plugins.black.preview": {
+          "type": "boolean",
+          "default": false,
+          "description": " a boolean to enable black configuration caching."
+        },
+        "pylsp.plugins.black.skip_string_normalization": {
+          "type": "boolean",
+          "default": true,
+          "description": "a boolean to enable or disable black's --skip-string-normalization setting."
+        },
+        "pylsp.plugins.black.skip_magic_trailing_comma": {
+          "type": "boolean",
+          "default": true,
+          "description": "a boolean to enable or disable black's skip-magic-trailing-comma setting."
+        },
         "pylsp.plugins.ruff.enabled": {
           "type": "boolean",
           "default": true,
