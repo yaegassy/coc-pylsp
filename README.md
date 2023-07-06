@@ -87,28 +87,6 @@ It is also possible to specify the version of the third party tool to be install
 }
 ```
 
-**python-lsp-black tips**:
-
-If you have `yapf` or `autopep8` installed, you may experience unexpected results.
-
-Change the `pylsp.builtin.installExtrasArgs` setting to suit your needs so that `yapf` and `autopep8` are not installed
-
-```jsonc
-{
-  // ...snip
-  "pylsp.builtin.installExtrasArgs": [
-    "flake8",
-    "mccabe",
-    "pycodestyle",
-    "pydocstyle",
-    "pyflakes",
-    "pylint",
-    "rope"
-  ],
-  "pylsp.builtin.enableInstallPythonLspBlack": true,
-  /// ...snip
-```
-
 ---
 
 <!-- markdownlint-disable-next-line -->
