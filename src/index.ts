@@ -88,7 +88,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
         await installWrapper(pythonCommand.real, context);
       }
       client.start();
-    })
+    }),
   );
 
   context.subscriptions.push(
@@ -100,7 +100,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
         await installWrapper(pythonCommand.real, context);
       }
       client.start();
-    })
+    }),
   );
 
   let serverOptions: ServerOptions;
