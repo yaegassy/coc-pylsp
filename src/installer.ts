@@ -2,7 +2,7 @@ import { ExtensionContext, window, workspace } from 'coc.nvim';
 
 import path from 'path';
 
-import rimraf from 'rimraf';
+import { rimrafSync } from 'rimraf';
 import child_process from 'child_process';
 import util from 'util';
 
@@ -70,7 +70,7 @@ export async function pylspInstall(pythonCommand: string, context: ExtensionCont
     installCmd = installCmd.concat(' ', installPythonLspRuff);
   }
 
-  rimraf.sync(pathVenv);
+  rimrafSync(pathVenv);
   try {
     window.showInformationMessage(`Install pylsp and related tools...`);
     await exec(installCmd);
