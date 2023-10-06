@@ -35,7 +35,7 @@
     "semi": true
   },
   "devDependencies": {
-    "@types/node": "^18.17.15",
+    "@types/node": "^18.18.3",
     "@types/which": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
