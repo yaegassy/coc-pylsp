@@ -631,6 +631,11 @@
           "default": true,
           "description": "Enable or disable autoimport completions."
         },
+        "pylsp.plugins.rope_autoimport.code_actions.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable autoimport code actions (e.g. for quick fixes)."
+        },
         "pylsp.plugins.rope_autoimport.memory": {
           "type": "boolean",
           "default": false,
