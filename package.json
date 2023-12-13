@@ -701,13 +701,13 @@
         },
         "pylsp.plugins.black.skip_string_normalization": {
           "type": "boolean",
-          "default": true,
-          "description": "a boolean to enable or disable black's --skip-string-normalization setting."
+          "default": false,
+          "description": "A boolean to enable or disable black's --skip-string-normalization setting."
         },
         "pylsp.plugins.black.skip_magic_trailing_comma": {
           "type": "boolean",
-          "default": true,
-          "description": "a boolean to enable or disable black's skip-magic-trailing-comma setting."
+          "default": false,
+          "description": "A boolean to enable or disable black's skip-magic-trailing-comma setting."
         },
         "pylsp.plugins.ruff.enabled": {
           "type": "boolean",
@@ -806,10 +806,11 @@
             "array",
             null
           ],
-          "default": [
-            "I"
-          ],
-          "description": "List of error codes to fix during formatting."
+          "default": null,
+          "items": {
+            "type": "string"
+          },
+          "description": "List of error codes to fix during formatting. Empty by default, use `[\"I\"]` here to get import sorting as part of formatting."
         },
         "pylsp.plugins.ruff.unsafeFixes": {
           "type": "boolean",
