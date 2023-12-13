@@ -816,6 +816,11 @@
           "default": false,
           "description": "Boolean that enables/disables fixes that are marked \"unsafe\" by `ruff`."
         },
+        "pylsp.plugins.ruff.preview": {
+          "type": "boolean",
+          "default": false,
+          "description": "Boolean that enables/disables rules & fixes that are marked \"preview\" by `ruff`."
+        },
         "pylsp.plugins.ruff.severities": {
           "type": [
             "object",
@@ -823,6 +828,14 @@
           ],
           "default": null,
           "description": "Dictionary of custom severity levels for specific codes."
+        },
+        "pylsp.plugins.ruff.targetVersion": {
+          "type": [
+            "string",
+            null
+          ],
+          "default": null,
+          "description": "The minimum Python version to target."
         }
       }
     },
