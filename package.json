@@ -732,8 +732,8 @@
             "string",
             null
           ],
-          "default": "ruff",
-          "description": " Path to the ruff executable. Assumed to be in PATH by default."
+          "default": null,
+          "description": "Path to the ruff executable. Uses `os.executable -m \"ruff\"` by default."
         },
         "pylsp.plugins.ruff.ignore": {
           "type": [
