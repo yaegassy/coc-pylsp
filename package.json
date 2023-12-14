@@ -1,6 +1,6 @@
 {
   "name": "@yaegassy/coc-pylsp",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "description": "pylsp (python-lsp-server) extension for coc.nvim",
   "author": "yaegassy <yosstools@gmail.com>",
   "license": "MIT",
