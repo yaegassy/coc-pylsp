@@ -259,6 +259,14 @@
           },
           "description": "List of errors and warnings to ignore (or skip)."
         },
+        "pylsp.plugins.flake8.maxComplexity": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "default": null,
+          "description": "Maximum allowed complexity threshold."
+        },
         "pylsp.plugins.flake8.maxLineLength": {
           "type": [
             "integer",
@@ -505,11 +513,6 @@
           "default": null,
           "description": "Hang closing bracket instead of matching indentation of opening bracket's line."
         },
-        "pylsp.plugins.flake8.maxComplexity": {
-          "type": "integer",
-          "default": null,
-          "description": "Maximum allowed complexity threshold."
-        },
         "pylsp.plugins.pycodestyle.maxLineLength": {
           "type": [
             "integer",
@@ -624,7 +627,7 @@
         "pylsp.plugins.rope_autoimport.enabled": {
           "type": "boolean",
           "default": false,
-          "description": "Enable or disable autoimport."
+          "description": "Enable or disable autoimport. If false, neither completions nor code actions are enabled. If true, the respective features can be enabled or disabled individually."
         },
         "pylsp.plugins.rope_autoimport.completions.enabled": {
           "type": "boolean",
@@ -674,42 +677,42 @@
             "type": "string"
           },
           "uniqueItems": true,
-          "description": "The name of the folder in which rope stores project configurations and data.  Pass `null` for not using such a folder at all."
+          "description": "The name of the folder in which rope stores project configurations and data. Pass `null` for not using such a folder at all."
         },
         "pylsp.plugins.black.enabled": {
           "type": "boolean",
           "default": true,
-          "description": "boolean to enable/disable the plugin."
+          "description": "Boolean to enable/disable the plugin."
         },
         "pylsp.plugins.black.cache_config": {
           "type": "boolean",
           "default": false,
-          "description": " a boolean to enable black configuration caching."
+          "description": "A boolean to enable black configuration caching."
         },
         "pylsp.plugins.black.line_length": {
           "type": "number",
           "default": 88,
-          "description": "an integer that maps to black's max-line-length setting. Defaults to 88 (same as black's default). This can also be set through black's configuration files, which should be preferred for multi-user projects."
+          "description": "An integer that maps to black's max-line-length setting. Defaults to 88 (same as black's default). This can also be set through black's configuration files, which should be preferred for multi-user projects."
         },
         "pylsp.plugins.black.preview": {
           "type": "boolean",
           "default": false,
-          "description": " a boolean to enable black configuration caching."
+          "description": "A boolean to enable or disable black's --preview setting."
         },
         "pylsp.plugins.black.skip_string_normalization": {
           "type": "boolean",
-          "default": true,
-          "description": "a boolean to enable or disable black's --skip-string-normalization setting."
+          "default": false,
+          "description": "A boolean to enable or disable black's --skip-string-normalization setting."
         },
         "pylsp.plugins.black.skip_magic_trailing_comma": {
           "type": "boolean",
-          "default": true,
-          "description": "a boolean to enable or disable black's skip-magic-trailing-comma setting."
+          "default": false,
+          "description": "A boolean to enable or disable black's skip-magic-trailing-comma setting."
         },
         "pylsp.plugins.ruff.enabled": {
           "type": "boolean",
           "default": true,
-          "description": "boolean to enable/disable the plugin."
+          "description": "Boolean to enable/disable the plugin."
         },
         "pylsp.plugins.ruff.config": {
           "type": [
@@ -717,7 +720,7 @@
             null
           ],
           "default": null,
-          "description": "Path to optional pyproject.toml file."
+          "description": "Path to optional `pyproject.toml` file."
         },
         "pylsp.plugins.ruff.exclude": {
           "type": [
@@ -725,15 +728,18 @@
             null
           ],
           "default": null,
-          "description": "Exclude files from being checked by ruff."
+          "items": {
+            "type": "string"
+          },
+          "description": "Exclude files from being checked by `ruff`."
         },
         "pylsp.plugins.ruff.executable": {
           "type": [
             "string",
             null
           ],
-          "default": "ruff",
-          "description": " Path to the ruff executable. Assumed to be in PATH by default."
+          "default": null,
+          "description": "Path to the ruff executable. Uses `os.executable -m \"ruff\"` by default."
         },
         "pylsp.plugins.ruff.ignore": {
           "type": [
@@ -741,6 +747,9 @@
             null
           ],
           "default": null,
+          "items": {
+            "type": "string"
+          },
           "description": "Error codes to ignore."
         },
         "pylsp.plugins.ruff.extendIgnore": {
@@ -749,11 +758,14 @@
             null
           ],
           "default": null,
+          "items": {
+            "type": "string"
+          },
           "description": "Same as ignore, but append to existing ignores."
         },
         "pylsp.plugins.ruff.lineLength": {
           "type": [
-            "number",
+            "integer",
             null
           ],
           "default": null,
@@ -773,6 +785,9 @@
             null
           ],
           "default": null,
+          "items": {
+            "type": "string"
+          },
           "description": "List of error codes to enable."
         },
         "pylsp.plugins.ruff.extendSelect": {
@@ -781,6 +796,9 @@
             null
           ],
           "default": null,
+          "items": {
+            "type": "string"
+          },
           "description": "Same as select, but append to existing error codes."
         },
         "pylsp.plugins.ruff.format": {
@@ -788,15 +806,21 @@
             "array",
             null
           ],
-          "default": [
-            "I"
-          ],
-          "description": "List of error codes to fix during formatting."
+          "default": null,
+          "items": {
+            "type": "string"
+          },
+          "description": "List of error codes to fix during formatting. Empty by default, use `[\"I\"]` here to get import sorting as part of formatting."
         },
         "pylsp.plugins.ruff.unsafeFixes": {
           "type": "boolean",
           "default": false,
-          "description": "boolean that enables/disables fixes that are marked \"unsafe\" by `ruff`."
+          "description": "Boolean that enables/disables fixes that are marked \"unsafe\" by `ruff`."
+        },
+        "pylsp.plugins.ruff.preview": {
+          "type": "boolean",
+          "default": false,
+          "description": "Boolean that enables/disables rules & fixes that are marked \"preview\" by `ruff`."
         },
         "pylsp.plugins.ruff.severities": {
           "type": [
@@ -805,6 +829,14 @@
           ],
           "default": null,
           "description": "Dictionary of custom severity levels for specific codes."
+        },
+        "pylsp.plugins.ruff.targetVersion": {
+          "type": [
+            "string",
+            null
+          ],
+          "default": null,
+          "description": "The minimum Python version to target."
         }
       }
     },

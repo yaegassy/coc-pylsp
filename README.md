@@ -28,7 +28,7 @@ coc-pylsp detects and starts pylsp.
 1. current python3/python environment (e.g. pylsp in venv)
 1. builtin pylsp (Installation commands are also provided)
 
-## Bult-in install (pylsp and 3rd party plugins)
+## Built-in install (pylsp and 3rd party plugins)
 
 `coc-pylsp` allows you to create an extension-only "venv" and install "pylsp (python-lsp-server)" and "related tools" (e.g. pylsp-mypy).
 
@@ -97,6 +97,21 @@ You can also run the installation command manually.
 ```vim
 :CocCommand pylsp.builtin.install
 ```
+
+### python-lsp-ruff
+
+If you enable `python-lsp-ruff` then you will probably want to disable the built-in `pycodestyle`,
+`pyflakes`, `mccabe` and `pyls_isort` plugins, for example:
+```
+{
+  "pylsp.plugins.pycodestyle.enabled": false,
+  "pylsp.plugins.pyflakes.enabled": false
+  "pylsp.plugins.mccabe.enabled": false,
+  "pylsp.plugins.pyls_isort.enabled": false,
+}
+```
+Although `python-lsp-ruff` tries to disable these automatically, they must be explicitly disabled
+when using `coc-pylsp`.
 
 ## Use tcp mode
 
