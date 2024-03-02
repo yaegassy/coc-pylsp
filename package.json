@@ -714,6 +714,11 @@
           "default": true,
           "description": "Boolean to enable/disable the plugin."
         },
+        "pylsp.plugins.ruff.formatEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Boolean to enable/disable the ruff formatter."
+        },
         "pylsp.plugins.ruff.config": {
           "type": [
             "string",
