@@ -5,8 +5,8 @@ description = ""
 authors = ["yaegassy <yosstools@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-python-lsp-server = "1.12.2"
+python = "^3.9"
+python-lsp-server = "1.13.0"
 
 
 [build-system]
