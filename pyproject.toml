@@ -6,7 +6,7 @@ authors = ["yaegassy <yosstools@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-python-lsp-server = "1.13.0"
+python-lsp-server = "1.13.1"
 
 
 [build-system]
