@@ -233,14 +233,14 @@ test = ["coverage", "pycodestyle", "pyflakes", "pylint", "pytest", "pytest-cov"]
 
 [[package]]
 name = "python-lsp-server"
-version = "1.13.2"
+version = "1.14.0"
 description = "Python Language Server for the Language Server Protocol"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "python_lsp_server-1.13.2-py3-none-any.whl", hash = "sha256:695dbf25a2473494ae31b1b2eefb83341915f6f77bf96d2564da5bcbbf32f7f0"},
-    {file = "python_lsp_server-1.13.2.tar.gz", hash = "sha256:d507fc6be69861740827f4e4dffa1c9b1dec97c0ead859cfef86aa342a4c7904"},
+    {file = "python_lsp_server-1.14.0-py3-none-any.whl", hash = "sha256:a71a917464effc48f4c70363f90b8520e5e3ba8201428da80b97a7ceb259e32a"},
+    {file = "python_lsp_server-1.14.0.tar.gz", hash = "sha256:509c445fc667f41ffd3191cb7512a497bf7dd76c14ceb1ee2f6c13ebe71f9a6b"},
 ]
 
 [package.dependencies]
@@ -253,16 +253,16 @@ python-lsp-jsonrpc = ">=1.1.0,<2.0.0"
 ujson = ">=3.0.0"
 
 [package.extras]
-all = ["autopep8 (>=2.0.4,<2.1.0)", "flake8 (>=7.1,<8)", "mccabe (>=0.7.0,<0.8.0)", "pycodestyle (>=2.12.0,<2.13.0)", "pydocstyle (>=6.3.0,<6.4.0)", "pyflakes (>=3.2.0,<3.3.0)", "pylint (>=3.1,<4)", "rope (>=1.11.0)", "whatthepatch (>=1.0.2,<2.0.0)", "yapf (>=0.33.0)"]
+all = ["autopep8 (>=2.0.4,<2.1.0)", "flake8 (>=7.1,<8)", "mccabe (>=0.7.0,<0.8.0)", "pycodestyle (>=2.12.0,<2.13.0)", "pydocstyle (>=6.3.0,<6.4.0)", "pyflakes (>=3.2.0,<3.3.0)", "pylint (>=3.1,<4.1.0)", "rope (>=1.11.0)", "whatthepatch (>=1.0.2,<2.0.0)", "yapf (>=0.33.0)"]
 autopep8 = ["autopep8 (>=2.0.4,<2.1.0)"]
 flake8 = ["flake8 (>=7.1,<8)"]
 mccabe = ["mccabe (>=0.7.0,<0.8.0)"]
 pycodestyle = ["pycodestyle (>=2.12.0,<2.13.0)"]
 pydocstyle = ["pydocstyle (>=6.3.0,<6.4.0)"]
 pyflakes = ["pyflakes (>=3.2.0,<3.3.0)"]
-pylint = ["pylint (>=3.1,<4)"]
+pylint = ["pylint (>=3.1,<4.1.0)"]
 rope = ["rope (>=1.11.0)"]
-test = ["coverage", "flaky", "matplotlib", "numpy", "pandas", "pylint (>=3.1,<4)", "pyqt6", "pytest", "pytest-cov", "websockets (>=10.3)"]
+test = ["coverage", "flaky", "matplotlib", "numpy", "pandas", "pylint (>=3.1,<4.1.0)", "pyqt6", "pytest", "pytest-cov", "websockets (>=10.3)"]
 websockets = ["websockets (>=10.3)"]
 yapf = ["whatthepatch (>=1.0.2,<2.0.0)", "yapf (>=0.33.0)"]
 
@@ -417,4 +417,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "a1f9b8dc7aed40e947dfece4d2e94ff4de1dae008bf53706658cb4911ea20dd1"
+content-hash = "0c0a09b6536e1007e8559bc4ca92689e8ad28524786ae6a86a62f1774f1da691"

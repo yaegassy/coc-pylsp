@@ -10,4 +10,4 @@ authors = ["yaegassy <yosstools@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-python-lsp-server = "1.13.2"
+python-lsp-server = "1.14.0"
